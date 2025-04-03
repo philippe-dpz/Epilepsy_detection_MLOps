@@ -1,4 +1,4 @@
-.
+appuyer sur edit pour voir en bon format
 ├── .dvc                 # DVC tracking files
 ├── .dvcignore           # Fichiers et dossiers à ignorer par DVC
 ├── .gitignore           # Fichiers et dossiers à ignorer par Git
