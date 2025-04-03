@@ -28,6 +28,6 @@ lancer les programmes dans l'ordre:
 - preprocessing.py: prends 800 lignes aleatoires du dataset originel pour entrainer le model 
 - train.py: entraine le model avec données preprocessed et sauvegarde le model
 - patient_data_pull.py: prends les données non-utilisées par train.py et créer une nouvelle base de données avec des identifiants allant de 1 à 10700
-- app.py: entrer http://127.0.0.1:8000/predict/[id du patient] (eg:http://127.0.0.1:8000/predict/35)
+- app.py: lancer l'api uvicorn src.app:app --reload dans terminal puis entrer http://127.0.0.1:8000/predict/[id du patient] (eg:http://127.0.0.1:8000/predict/35)
 
 
