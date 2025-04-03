@@ -1,45 +1,54 @@
-import tensorflow as tf
+import os
+import numpy as np
 from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import LSTM, Dense, Dropout
-import mlflow
-from .preprocessing import preprocess_data
+from tensorflow.keras.layers import LSTM, Dropout, Dense, Activation
+from tensorflow.keras.optimizers import Adam
 
-def build_model(input_shape: tuple) -> Sequential:
-    """Define LSTM model architecture."""
-    model = Sequential([
-        LSTM(64, input_shape=input_shape, return_sequences=True),
-        Dropout(0.3),
-        LSTM(32),
-        Dense(16, activation='tanh'),
-        Dense(5, activation='softmax')
-    ])
-    model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
-    return model
+# Définition des chemins des fichiers
+PROCESSED_X_TRAIN_PATH = "data/processed/X_train.npy"
+PROCESSED_Y_TRAIN_PATH = "data/processed/Y_train.npy"
+PROCESSED_X_TEST_PATH = "data/processed/X_test.npy"
+PROCESSED_Y_TEST_PATH = "data/processed/Y_test.npy"
+MODEL_SAVE_PATH = "models/epilepsy_model.h5"
 
-def train_model(data_path: str, epochs: int = 50):
-    """End-to-end training pipeline with MLflow tracking."""
+# Charger les données prétraitées
+X_train = np.load(PROCESSED_X_TRAIN_PATH)
+Y_train = np.load(PROCESSED_Y_TRAIN_PATH)
+X_test = np.load(PROCESSED_X_TEST_PATH)
+Y_test = np.load(PROCESSED_Y_TEST_PATH)
 
-    df = load_data(data_path)
-    X_train, X_test, y_train, y_test = preprocess_data(df)
-    
-    mlflow.set_experiment("epilepsy_classification")
-    
-    with mlflow.start_run():
-        
-        mlflow.log_param("epochs", epochs)
-        
-        model = build_model((X_train.shape[1], X_train.shape[2]))
-        history = model.fit(X_train, y_train, 
-                          validation_data=(X_test, y_test),
-                          epochs=epochs, 
-                          batch_size=32)
-        
-        
-        mlflow.log_metrics({
-            "train_accuracy": history.history['accuracy'][-1],
-            "val_accuracy": history.history['val_accuracy'][-1]
-        })
-        
-       
-        model.save("models/epilepsy_model.h5")
-        mlflow.log_artifact("models/epilepsy_model.h5")
+# Afficher les dimensions des datasets
+print(f"📊 X_train shape: {X_train.shape}, Y_train shape: {Y_train.shape}")
+print(f"📊 X_test shape: {X_test.shape}, Y_test shape: {Y_test.shape}")
+
+# Définition du modèle
+model = Sequential()
+model.add(LSTM(56, input_shape=(X_train.shape[1], 1), return_sequences=True))
+model.add(Dropout(0.3))
+model.add(LSTM(56))
+model.add(Dropout(0.3))
+model.add(Dense(20, activation='tanh'))
+model.add(Dense(2, activation='softmax'))  # 2 classes pour la classification binaire
+
+# Compilation du modèle
+model.compile(loss='categorical_crossentropy',
+              optimizer=Adam(),
+              metrics=['accuracy'])
+
+# Résumé du modèle
+model.summary()
+
+# Entraînement du modèle avec validation
+hist = model.fit(
+    X_train, Y_train,
+    epochs=56,
+    batch_size=15,
+    validation_data=(X_test, Y_test),  # Ajout de la validation
+    shuffle=False
+)
+
+# Sauvegarde du modèle entraîné
+os.makedirs("models", exist_ok=True)
+model.save(MODEL_SAVE_PATH)
+
+print(f"✅ Entraînement terminé ! Modèle sauvegardé à {MODEL_SAVE_PATH}")
