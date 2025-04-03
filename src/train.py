@@ -11,7 +11,6 @@ PROCESSED_X_TEST_PATH = "data/processed/X_test.npy"
 PROCESSED_Y_TEST_PATH = "data/processed/Y_test.npy"
 MODEL_SAVE_PATH = "models/epilepsy_model.h5"
 
-# Charger les données prétraitées
 X_train = np.load(PROCESSED_X_TRAIN_PATH)
 Y_train = np.load(PROCESSED_Y_TRAIN_PATH)
 X_test = np.load(PROCESSED_X_TEST_PATH)
@@ -28,9 +27,8 @@ model.add(Dropout(0.3))
 model.add(LSTM(56))
 model.add(Dropout(0.3))
 model.add(Dense(20, activation='tanh'))
-model.add(Dense(2, activation='softmax'))  # 2 classes pour la classification binaire
+model.add(Dense(2, activation='softmax')) 
 
-# Compilation du modèle
 model.compile(loss='categorical_crossentropy',
               optimizer=Adam(),
               metrics=['accuracy'])
@@ -43,7 +41,7 @@ hist = model.fit(
     X_train, Y_train,
     epochs=56,
     batch_size=15,
-    validation_data=(X_test, Y_test),  # Ajout de la validation
+    validation_data=(X_test, Y_test),  
     shuffle=False
 )
 
