@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/phili/Epilepsy_detection_MLOps/mlruns/0/636fb4dd2edf4b1b9ccf2e66ee1af74a/artifacts
+end_time: 1743777631205
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 636fb4dd2edf4b1b9ccf2e66ee1af74a
+run_name: righteous-grub-802
+run_uuid: 636fb4dd2edf4b1b9ccf2e66ee1af74a
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1743777600101
+status: 3
+tags: []
+user_id: phili

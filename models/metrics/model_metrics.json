@@ -1,0 +1,1 @@
+{"model_path": "models/epilepsy_model.h5", "metrics": {"train_accuracy": 0.9624999761581421, "val_accuracy": 0.949999988079071, "train_loss": 0.11192025989294052, "val_loss": 0.17986245453357697, "epochs": 20, "batch_size": 15, "architecture": "2xLSTM_+_Dense"}}
