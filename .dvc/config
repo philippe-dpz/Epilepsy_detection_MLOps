@@ -1,4 +1,0 @@
-[core]
-    remote = myremote
-['remote "myremote"']
-    url = C:\Users\phili\Documents\dvc_storage
