@@ -11,6 +11,7 @@ def track_model_and_metrics(model_path, metrics):
         # Charger le modèle avec Keras
         model = load_model(model_path)  # Use Keras to load the model from local file
 
+        
         # Loguer le modèle
         mlflow.keras.log_model(model, "model")
         
