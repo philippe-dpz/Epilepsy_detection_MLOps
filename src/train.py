@@ -3,6 +3,7 @@ import numpy as np
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import LSTM, Dropout, Dense
 from tensorflow.keras.optimizers import Adam
+from tensorflow.keras.callbacks import EarlyStopping
 import json
 
 # Define file paths
@@ -34,13 +35,19 @@ model.compile(loss='categorical_crossentropy',
               optimizer=Adam(),
               metrics=['accuracy'])
 
+# Define EarlyStopping callback
+early_stopping = EarlyStopping(monitor='val_loss',  # Monitor validation loss
+                               patience=5,         # Patience of 5 epochs
+                               restore_best_weights=True)  # Restore the model with the best weights
+
 # Train the model
 hist = model.fit(
     X_train, Y_train,
     epochs=20,
     batch_size=15,
-    validation_data=(X_test, Y_test),  
-    shuffle=False
+    validation_data=(X_test, Y_test),  # Use X_test and Y_test as validation data
+    shuffle=False,
+    callbacks=[early_stopping]  # Add early stopping callback here
 )
 
 # Save the model

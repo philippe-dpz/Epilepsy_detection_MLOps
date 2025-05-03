@@ -7,6 +7,10 @@ stages:
       hash: md5
       md5: 6fd90d64def591ae3c8de83bc8dc7348
       size: 7623837
+    - path: src/preprocessing.py
+      hash: md5
+      md5: 68f27ed4069140a60139ccd56e8511ee
+      size: 1877
     outs:
     - path: data/patients_data.csv
       hash: md5
@@ -28,3 +32,43 @@ stages:
       hash: md5
       md5: c05f8014505ade0a63ee2cb2f079bb62
       size: 10368
+  train:
+    cmd: python src/train.py
+    deps:
+    - path: data/processed/X_train.npy
+      hash: md5
+      md5: ee923c1cbda6d9c69bcde46a1aedb596
+      size: 911488
+    - path: data/processed/Y_train.npy
+      hash: md5
+      md5: c05f8014505ade0a63ee2cb2f079bb62
+      size: 10368
+    - path: src/train.py
+      hash: md5
+      md5: fca61aa142f3705b65c884159c9032ad
+      size: 2648
+    outs:
+    - path: models/epilepsy_model.h5
+      hash: md5
+      md5: 9704754c74acd75bd557da1d2b36655f
+      size: 517432
+    - path: models/metrics/model_metrics.json
+      hash: md5
+      md5: b982af1dbdb93ca8fd71eb4da4e825ac
+      size: 262
+  patient_data_pull:
+    cmd: python src/patient_data_pull.py
+    deps:
+    - path: data/patients_data.csv
+      hash: md5
+      md5: 61c72ee4002d0c9f36631b2455e13286
+      size: 6982247
+    - path: src/patient_data_pull.py
+      hash: md5
+      md5: 86c7158c299014f5fdc0d4cbc2518ddd
+      size: 503
+    outs:
+    - path: data/patients_data_updated.csv
+      hash: md5
+      md5: d41c638d18200444f2ea3f45ff47e57a
+      size: 7013942
