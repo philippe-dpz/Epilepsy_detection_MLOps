@@ -1,0 +1,30 @@
+schema: '2.0'
+stages:
+  preprocess:
+    cmd: python src/preprocessing.py
+    deps:
+    - path: data/raw/Epileptic_Seizure_Recognition.csv
+      hash: md5
+      md5: 6fd90d64def591ae3c8de83bc8dc7348
+      size: 7623837
+    outs:
+    - path: data/patients_data.csv
+      hash: md5
+      md5: 61c72ee4002d0c9f36631b2455e13286
+      size: 6982247
+    - path: data/processed/X_test.npy
+      hash: md5
+      md5: 2042a9570ffc396caac4afe91a4423ea
+      size: 227968
+    - path: data/processed/X_train.npy
+      hash: md5
+      md5: ee923c1cbda6d9c69bcde46a1aedb596
+      size: 911488
+    - path: data/processed/Y_test.npy
+      hash: md5
+      md5: 5e345cb3686d8e90f058b145e9e638af
+      size: 2688
+    - path: data/processed/Y_train.npy
+      hash: md5
+      md5: c05f8014505ade0a63ee2cb2f079bb62
+      size: 10368
