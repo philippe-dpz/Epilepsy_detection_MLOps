@@ -1,0 +1,30 @@
+FROM python:3.9-slim
+
+WORKDIR /app
+
+# Install system dependencies (required for TensorFlow)
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libgomp1 \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy requirements first to leverage Docker cache
+COPY services/model_training/requirements.txt .
+
+# Install Python dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy the training code and necessary files
+COPY services/model_training /app
+COPY data /app/data
+COPY metrics /app/metrics  
+
+# Environment variables
+ENV MLFLOW_TRACKING_URI=http://mlflow:5000
+ENV DATA_PATH=/app/data
+ENV MODEL_PATH=/app/models
+ENV METRICS_PATH=/app/metrics
+
+# Create directories (in case they don't exist in mounted volumes)
+RUN mkdir -p /app/models /app/metrics
+
+CMD ["python", "train.py"]

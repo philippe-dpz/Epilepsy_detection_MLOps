@@ -1,0 +1,14 @@
+artifact_uri: file:///C:/Users/phili/Documents/Epilepsy_detection_MLOPS_v3/mlruns/0/0d1c2050ebc04bd998132a681941e04f/artifacts
+end_time: 1747161888635
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 0d1c2050ebc04bd998132a681941e04f
+run_name: valuable-cow-942
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1747161698690
+status: 3
+tags: []
+user_id: root

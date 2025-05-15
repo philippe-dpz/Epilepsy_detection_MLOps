@@ -1,30 +1,17 @@
 stages:
   preprocess:
-    cmd: python src/preprocessing.py
+    cmd: docker-compose run --rm preprocessor
     deps:
       - data/raw/Epileptic_Seizure_Recognition.csv
-      - src/preprocessing.py
     outs:
       - data/processed/X_train.npy
       - data/processed/Y_train.npy
       - data/processed/X_test.npy
       - data/processed/Y_test.npy
-      - data/patients_data.csv
 
   train:
-    cmd: python src/train.py
+    cmd: docker-compose run --rm trainer
     deps:
-      - src/train.py
       - data/processed/X_train.npy
-      - data/processed/Y_train.npy
     outs:
-      - models/epilepsy_model.h5
-      - models/metrics/model_metrics.json
-
-  patient_data_pull:
-    cmd: python src/patient_data_pull.py
-    deps:
-      - src/patient_data_pull.py
-      - data/patients_data.csv
-    outs:
-      - data/patients_data_updated.csv
+      - models/epilepsy_model.keras

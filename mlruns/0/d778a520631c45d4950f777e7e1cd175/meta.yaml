@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/phili/Documents/Epilepsy_detection_MLOPS_v3/mlruns/0/d778a520631c45d4950f777e7e1cd175/artifacts
+end_time: 1747143434204
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: d778a520631c45d4950f777e7e1cd175
+run_name: clumsy-flea-408
+run_uuid: d778a520631c45d4950f777e7e1cd175
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1747143213844
+status: 3
+tags: []
+user_id: phili
